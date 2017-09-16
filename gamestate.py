@@ -23,8 +23,16 @@ class GameState:
 
         # If the active player is on the (2, 0) space, they cannot legally move to (0, 1), and vice versa
         if active_player_location:
-            if active_player_location[0] == 2: available_moves.remove((0, 1))
-            if active_player_location == (0, 1): available_moves.remove((2, 0))
+            if active_player_location[0] == 2:
+                try:
+                    available_moves.remove((0, 1))
+                except ValueError:
+                    pass
+            if active_player_location == (0, 1):
+                try:
+                    available_moves.remove((2, 0))
+                except ValueError:
+                    pass
 
             # If the active_player has a location, then the inactive player may also have a location
             # Only exception is the first move
@@ -33,8 +41,16 @@ class GameState:
             # The only location that is able to block the other player is (1, 0)
             if inactive_player_location and inactive_player_location == (1, 0):
                 if active_player_location[1] == 0:
-                    if active_player_location[0] == 0: available_moves.remove((2, 0))
-                    if active_player_location[0] == 2: available_moves.remove((0, 0))
+                    if active_player_location[0] == 0:
+                        try:
+                            available_moves.remove((2, 0))
+                        except ValueError:
+                            pass
+                    if active_player_location[0] == 2:
+                        try:
+                            available_moves.remove((0, 0))
+                        except ValueError:
+                            pass
 
 
         return available_moves
